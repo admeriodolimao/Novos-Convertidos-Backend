@@ -21,6 +21,7 @@ import { ProdistModule } from './prodist/prodist.module';
 import { PdfFinalModule } from './pdf/pdf-finals/pdf-final.module';
 import { TriagemModule } from './triagem/triagem.module';
 import { PostModule } from './posts/posts.module';
+import { NCModule } from './novo-convertido/nc.module';
 
 
 //import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
@@ -43,6 +44,7 @@ import { PostModule } from './posts/posts.module';
      // ttl:60,
      // limit:100
     //  }),
+    forwardRef(() => NCModule),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
     MailerModule.forRoot({
