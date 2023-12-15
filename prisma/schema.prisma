@@ -10,7 +10,7 @@ generator client {
 
 model Voluntarios {
   id                     Int      @id @default(autoincrement())
-  dataCriacao            DateTime @default(now())
+
   name                   String    @db.VarChar(63)
   email                  String    @db.VarChar(127) @unique
   password               String    @db.VarChar(255)

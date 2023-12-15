@@ -39,7 +39,7 @@ export const createNestServer = async (expressInstance) => {
 };
  //
 createNestServer(server)
-  .then((v) => console.log('Nest Ready'))
+  .then((v) => console.log('API Pronta - Nest Rodando'))
   .catch((err) => console.error('Nest broken', err));
 
 async function bootstrap() {

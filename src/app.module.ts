@@ -22,6 +22,7 @@ import { PdfFinalModule } from './pdf/pdf-finals/pdf-final.module';
 import { TriagemModule } from './triagem/triagem.module';
 import { PostModule } from './posts/posts.module';
 import { NCModule } from './novo-convertido/nc.module';
+import { VoluntarioModule } from './voluntario/voluntario.module';
 
 
 //import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
@@ -44,6 +45,7 @@ import { NCModule } from './novo-convertido/nc.module';
      // ttl:60,
      // limit:100
     //  }),
+    forwardRef(() => VoluntarioModule),
     forwardRef(() => NCModule),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
