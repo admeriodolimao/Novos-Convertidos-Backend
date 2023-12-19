@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { CreateVoluntarioDTO } from "./dto/create-voluntario.dto";
 import { UpdatePutVolDTO } from "./dto/update-put-vol.dto";
 import { UpdatePatchVolDTO } from "./dto/update-patch-vol.dto";
+import { SearchCriteria } from "./dto/search-criteria.dto";
 
 @Injectable()
 export class VoluntarioService {
@@ -118,14 +119,53 @@ export class VoluntarioService {
         });
     }
 
+    // async exists(id: number) {
+    //     if (!(await this.prisma.voluntarios.count({
+    //         where: {
+    //             id
+    //         }
+    //     }))) {
+    //         throw new NotFoundException(`O usuário ${id} não existe.`);
+    //     }
+    // }
+
     async exists(id: number) {
-        if (!(await this.prisma.voluntarios.count({
+        // Certifique-se de que id é um número válido
+        if (isNaN(id) || id <= 0) {
+            throw new NotFoundException('ID inválido.');
+        }
+    
+        const count = await this.prisma.voluntarios.count({
             where: {
                 id
             }
-        }))) {
+        });
+    
+        if (count === 0) {
             throw new NotFoundException(`O usuário ${id} não existe.`);
         }
     }
+    
+    async search(criteria: SearchCriteria) {
+        const whereClause: any = {
+            OR: [],
+        };
+    
+        if (criteria.term) {
+            // Adicione condições ao array OR
+            whereClause.OR.push(
+                { name: { contains: criteria.term, mode: 'insensitive' } },
+                { email: { contains: criteria.term, mode: 'insensitive' } },
+                { phone: { contains: criteria.term, mode: 'insensitive' } }
+                // Adicione outras condições conforme necessário
+            );
+        }
+    
+        return this.prisma.voluntarios.findMany({
+            where: whereClause,
+        });
+    }
+    
+    
 
 }

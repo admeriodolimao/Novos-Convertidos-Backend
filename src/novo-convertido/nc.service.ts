@@ -4,6 +4,7 @@ import { CreateNovoConvertidoDTO } from "./dto/create-nc.dto";
 import { UpdatePatchNovoConvertidoDTO } from "./dto/update-patch-nc.dto"; 
 import { UpdatePutNovoConvertidoDTO } from "./dto/update-put-nc.dto";
 import * as bcrypt from 'bcrypt';
+import { SearchCriteria } from "src/voluntario/dto/search-criteria.dto";
 
 @Injectable()
 export class NovoConvertidoService {
@@ -125,6 +126,27 @@ export class NovoConvertidoService {
         }))) {
             throw new NotFoundException(`O usuário ${id} não existe.`);
         }
+        
     }
-
+    
+    async search(criteria: SearchCriteria) {
+        const whereClause: any = {
+            OR: [],
+        };
+    
+        if (criteria.term) {
+            // Adicione condições ao array OR
+            whereClause.OR.push(
+                { name: { contains: criteria.term, mode: 'insensitive' } },
+                { email: { contains: criteria.term, mode: 'insensitive' } },
+                { telefone: { contains: criteria.term, mode: 'insensitive' } }
+                // Adicione outras condições conforme necessário
+            );
+        }
+    
+        return this.prisma.novoConvertido.findMany({
+            where: whereClause,
+        });
+    }
+    
 }

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Put, Patch, Delete, UseInterceptors,UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, Get, Put, Patch, Delete, UseInterceptors,UseGuards, Query } from "@nestjs/common"
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
 import { Role } from "src/enums/role.enum";
@@ -11,6 +11,7 @@ import { VoluntarioService } from "./voluntario.service";
 import { CreateVoluntarioDTO } from "./dto/create-voluntario.dto";
 import { UpdatePutVolDTO } from "./dto/update-put-vol.dto";
 import { UpdatePatchVolDTO } from "./dto/update-patch-vol.dto";
+import { SearchCriteria } from "./dto/search-criteria.dto";
 
 @Roles(Role.Admin)
 //@UseGuards(AuthGuard, RoleGuard)
@@ -49,6 +50,11 @@ export class VoluntarioController {
     @Delete(':id')
     async delete(@ParamId() id: number) {
         return this.voluntarioService.delete(id);
+    }
+
+    @Post('pesquisar')
+    async search(@Body() criteria: SearchCriteria) {
+        return this.voluntarioService.search(criteria);
     }
 
 }

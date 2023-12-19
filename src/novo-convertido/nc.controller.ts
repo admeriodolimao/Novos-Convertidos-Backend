@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Put, Patch, Delete, UseInterceptors,UseGuards } from "@nestjs/common"
+import { Controller, Post, Body, Get, Put, Patch, Delete, UseInterceptors,UseGuards, Query } from "@nestjs/common"
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
 import { Role } from "src/enums/role.enum";
@@ -11,6 +11,7 @@ import { AuthGuard } from "src/guards/auth.guard";
 import { RoleGuard } from "src/guards/role.guard";
 import { UpdatePutNovoConvertidoDTO } from "./dto/update-put-nc.dto";
 import { UpdatePatchNovoConvertidoDTO } from "./dto/update-patch-nc.dto";
+import { SearchCriteria } from "src/voluntario/dto/search-criteria.dto";
 
 //@Roles(Role.Admin)
 //@UseGuards(AuthGuard, RoleGuard)
@@ -49,6 +50,11 @@ export class NovoConvertidoController {
     @Delete(':id')
     async delete(@ParamId() id: number) {
         return this.ncService.delete(id);
+    }
+
+    @Post('pesquisar')
+    async search(@Body() criteria: SearchCriteria) {
+        return this.ncService.search(criteria);
     }
 
 }
