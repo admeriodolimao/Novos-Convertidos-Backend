@@ -12,18 +12,21 @@ export class NovoConvertidoService {
     constructor(private readonly prisma: PrismaService) {}
 
     async create(data: CreateNovoConvertidoDTO) {
-
         const salt = await bcrypt.genSalt();
-
         data.password = await bcrypt.hash(data.password, salt);
-
-        return  this.prisma.novoConvertido.create({
-            data,
+    
+        // Convert dataCriacao and dataNascimento to Date objects
+        const preparedData = {
+            ...data,
+            dataCriacao: data.dataCriacao ? new Date(data.dataCriacao) : new Date(), // Current date if not provided
+            dataNascimento: data.dataNascimento ? new Date(data.dataNascimento) : null,
+        };
+    
+        return this.prisma.novoConvertido.create({
+            data: preparedData,
         });
-
-
-
     }
+    
 
     async list() {//
 
@@ -119,14 +122,20 @@ export class NovoConvertidoService {
     }
 
     async exists(id: number) {
-        if (!(await this.prisma.novoConvertido.count({
+        // Certifique-se de que id é um número válido
+        if (isNaN(id) || id <= 0) {
+            throw new NotFoundException('ID inválido.');
+        }
+    
+        const count = await this.prisma.novoConvertido.count({
             where: {
                 id
             }
-        }))) {
+        });
+    
+        if (count === 0) {
             throw new NotFoundException(`O usuário ${id} não existe.`);
         }
-        
     }
     
     async search(criteria: SearchCriteria) {
