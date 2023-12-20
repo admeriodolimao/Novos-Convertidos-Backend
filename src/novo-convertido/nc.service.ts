@@ -144,7 +144,7 @@ export class NovoConvertidoService {
         };
     
         if (criteria.term) {
-            // Adicione condições ao array OR
+            // Adicione condições ao array OR //
             whereClause.OR.push(
                 { name: { contains: criteria.term, mode: 'insensitive' } },
                 { email: { contains: criteria.term, mode: 'insensitive' } },
