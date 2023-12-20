@@ -21,8 +21,7 @@ export const createNestServer = async (expressInstance) => {
     origin: [
       '*',
       'https://novos-convertidos-f968d.web.app/',
-      'https://coopeere-eco.web.app', 
-      'https://coopeere-eco.web.app/' , 
+      'https://novos-convertidos-f968d.web.app',
       'http://localhost:8100', 
       'http://localhost:8100/' , 
       'http://localhost:8101', 
@@ -47,7 +46,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: [
-      '*','https://coopeere-eco.web.app/', 'https://coopeere-eco.web.app' , 'http://localhost:8100', 'http://localhost:8100/', 'http://localhost:8101', 'http://localhost:8101/', 'https://novos-convertidos-f968d.web.app/'
+      '*', 
+      'https://novos-convertidos-f968d.web.app', 
+      'http://localhost:8100', 
+      'http://localhost:8100/', 
+      'http://localhost:8101', 
+      'http://localhost:8101/', 
+      'https://novos-convertidos-f968d.web.app/'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
@@ -58,7 +63,15 @@ async function bootstrap() {
 
   app.use(
     cors({
-      origin: ['*', 'https://novos-convertidos-f968d.web.app/','https://coopeere-eco.web.app', 'https://coopeere-eco.web.app/', 'http://localhost:8100', 'http://localhost:8100/', 'http://localhost:8101', 'http://localhost:8101/' ],
+      origin: [
+        '*', 
+        'https://novos-convertidos-f968d.web.app/', 
+        'https://novos-convertidos-f968d.web.app', 
+        'http://localhost:8100', 
+        'http://localhost:8100/', 
+        'http://localhost:8101', 
+        'http://localhost:8101/' 
+      ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'PATCH', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
     }),
