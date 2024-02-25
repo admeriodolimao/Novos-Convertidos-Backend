@@ -21,7 +21,7 @@
                 dataNascimento: data.dataNascimento ? new Date(data.dataNascimento) : null,
                 email: data.email ?? null, // Set email to null if it's not provided
             };
-            
+            ////
             if (data.voluntarioRelacionado) {
                 preparedData.voluntarioRelacionado = {
                     connect: { id: parseInt(data.voluntarioRelacionado) },
