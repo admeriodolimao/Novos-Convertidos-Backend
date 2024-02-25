@@ -39,13 +39,13 @@ model Voluntarios {
   forgetVerificationCode String    @default("12345") @db.VarChar(5)
   //isCooperadoApoiador    Boolean   @default(false)
     // Define the opposite relation field
-  novoConvertido         NovoConvertido[]
+  //novoConvertido         NovoConvertido[]
 }
 
 model NovoConvertido {
   id                     Int      @id @default(autoincrement())
-  voluntarioRelacionado   Voluntarios @relation(fields: [voluntarioRelacionadoId], references: [id])
-  voluntarioRelacionadoId Int      @default(1)
+  //voluntarioRelacionado   Voluntarios @relation(fields: [voluntarioRelacionadoId], references: [id])
+ // voluntarioRelacionadoId Int      @default(1)
   dataCriacao            DateTime @default(now())
   name                   String
   telefone               String

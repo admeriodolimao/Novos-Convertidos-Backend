@@ -9,15 +9,16 @@ export class CreateNovoConvertidoDTO {
     @IsString()
     name: string;
 
-    @IsOptional() 
-    @IsString()
-    voluntarioRelacionado?: string;
+    // @IsOptional() 
+    // @IsString()
+    // voluntarioRelacionado?: string;
 
     @IsString()
     telefone: string;
 
     @IsOptional() 
-    @IsEmail()
+    @IsString()
+   // @IsEmail()
     email?: string;
 
     @IsString()
