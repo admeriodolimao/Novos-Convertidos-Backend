@@ -23,12 +23,13 @@
             };
             ////
             if (data.voluntarioRelacionado) {
-                preparedData.voluntarioRelacionadoId = parseInt(data.voluntarioRelacionado);
+                preparedData = {
+                    ...preparedData,
+                    voluntarioRelacionado: {
+                        connect: { id: parseInt(data.voluntarioRelacionado) },
+                    },
+                };
             }
-            // else {
-            //     // If you do not intend to connect a voluntarioRelacionado, ensure you do not include it in preparedData
-            //     delete preparedData.voluntarioRelacionado;
-            // }
             
             return this.prisma.novoConvertido.create({
                 data: preparedData,
