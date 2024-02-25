@@ -10,10 +10,13 @@ export class CreateNovoConvertidoDTO {
     name: string;
 
     @IsString()
+    voluntarioRelacionado: string;
+
+    @IsString()
     telefone: string;
 
     @IsEmail()
-    email: string;
+    email?: string;
 
     @IsString()
     @MinLength(8) 

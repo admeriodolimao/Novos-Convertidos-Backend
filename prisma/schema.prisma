@@ -38,18 +38,22 @@ model Voluntarios {
   SMSVerificationCode    String    @default("12345") @db.VarChar(5)
   forgetVerificationCode String    @default("12345") @db.VarChar(5)
   //isCooperadoApoiador    Boolean   @default(false)
+    // Define the opposite relation field
+  novoConvertido         NovoConvertido[]
 }
 
 model NovoConvertido {
   id                     Int      @id @default(autoincrement())
+  voluntarioRelacionado   Voluntarios @relation(fields: [voluntarioRelacionadoId], references: [id])
+  voluntarioRelacionadoId Int      @default(1)
   dataCriacao            DateTime @default(now())
   name                   String
   telefone               String
   dataNascimento         DateTime
-  email                  String
-  password                String   
+  email                  String?
+  password               String   
   statusRelacionamento   String
-  jaTeveOutraReligiao     String
+  jaTeveOutraReligiao    String
 }
 
 
