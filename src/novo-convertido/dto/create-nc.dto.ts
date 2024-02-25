@@ -9,8 +9,9 @@ export class CreateNovoConvertidoDTO {
     @IsString()
     name: string;
 
+    @IsOptional() 
     @IsString()
-    voluntarioRelacionado: string;
+    voluntarioRelacionado?: string;
 
     @IsString()
     telefone: string;
