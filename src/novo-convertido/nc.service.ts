@@ -15,16 +15,22 @@
             const salt = await bcrypt.genSalt();
             data.password = await bcrypt.hash(data.password, salt);
         
-            // Convert dataCriacao and dataNascimento to Date objects
-            let preparedData: any = { // Use 'any' to bypass TypeScript's static typing here.
+            let preparedData: any = {
                 ...data,
                 dataCriacao: data.dataCriacao ? new Date(data.dataCriacao) : new Date(),
                 dataNascimento: data.dataNascimento ? new Date(data.dataNascimento) : null,
+                email: data.email ?? null, // Set email to null if it's not provided
             };
-        
+            
             if (data.voluntarioRelacionado) {
-                preparedData.voluntarioRelacionadoId = parseInt(data.voluntarioRelacionado);
+                preparedData.voluntarioRelacionado = {
+                    connect: { id: parseInt(data.voluntarioRelacionado) },
+                };
+            } else {
+                // If you do not intend to connect a voluntarioRelacionado, ensure you do not include it in preparedData
+                delete preparedData.voluntarioRelacionado;
             }
+            
             return this.prisma.novoConvertido.create({
                 data: preparedData,
             });
@@ -88,9 +94,7 @@
                 data.dataNascimento = new Date(dataNascimento);
             }
 
-            if (email) {
-                data.email = email;
-            }
+       
 
             if (name) {
                 data.name = name;
