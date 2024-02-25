@@ -20,6 +20,7 @@ export class CreateNovoConvertidoDTO {
     @IsString()
    // @IsEmail()
     email?: string;
+    
 
     @IsString()
     @MinLength(8) 
