@@ -23,10 +23,7 @@
             };
             ////
             if (data.voluntarioRelacionado) {
-                // Use the correct field for establishing the connection
-                preparedData.voluntarioRelacionadoId = {
-                    connect: { id: parseInt(data.voluntarioRelacionado) },
-                };
+                preparedData.voluntarioRelacionadoId = parseInt(data.voluntarioRelacionado);
             }
             // else {
             //     // If you do not intend to connect a voluntarioRelacionado, ensure you do not include it in preparedData
