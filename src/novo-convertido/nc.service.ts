@@ -22,14 +22,14 @@
                 email: data.email ?? null, // Set email to null if it's not provided
             };
             ////
-            if (data.voluntarioRelacionado) {
-                preparedData = {
-                    ...preparedData,
-                    voluntarioRelacionado: {
-                        connect: { id: parseInt(data.voluntarioRelacionado) },
-                    },
-                };
-            }
+            // if (data.voluntarioRelacionado) {
+            //     preparedData = {
+            //         ...preparedData,
+            //         voluntarioRelacionado: {
+            //             connect: { id: parseInt(data.voluntarioRelacionado) },
+            //         },
+            //     };
+            // }
             
             return this.prisma.novoConvertido.create({
                 data: preparedData,
